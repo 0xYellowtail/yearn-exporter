@@ -26,6 +26,10 @@ _erc20 = lru_cache(maxsize=None)(interface.ERC20)
 PREFER_INTERFACE = {
     Network.Arbitrum: {
         "0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f": _erc20, # empty ABI for WBTC when compiling the contract
+    },
+    Network.Fantom: {
+        "0xf1E0f7679ae786C528bBB4A882412518E2FE3846": _erc20, # unverified source for Spooky LP (spLP)
+        "0x2603769a8949d78Eb866B817Dc452f566dcc150D": _erc20, # unverified source for Spooky LP (spLP)
     }
 }
 
