@@ -5,14 +5,13 @@ from typing import Dict, List, Optional, Set
 
 from brownie import ZERO_ADDRESS, Contract, chain, web3
 from brownie.convert.datatypes import EthAddress
-from yearn.typing import Block
 from brownie.network.event import EventLookupError, _EventItem
 from eth_abi import encode_single
 from eth_utils import encode_hex
 from joblib import Parallel, delayed
 from yearn.constants import (ERC20_TRANSFER_EVENT_HASH,
                              ERC677_TRANSFER_EVENT_HASH, STRATEGIST_MULTISIG,
-                             TREASURY_WALLETS)
+                             TREASURY_WALLETS, WRAPPED_GAS_COIN)
 from yearn.decorators import sentry_catch_all, wait_or_exit_after
 from yearn.events import decode_logs
 from yearn.exceptions import PriceError
@@ -22,9 +21,9 @@ from yearn.outputs.victoria import output_treasury
 from yearn.partners.partners import partners
 from yearn.partners.snapshot import WildcardWrapper, Wrapper
 from yearn.prices import compound
-from yearn.prices.constants import weth
 from yearn.prices.magic import _describe_err, get_price
 from yearn.prices.magic import logger as logger_price_magic
+from yearn.typing import Block
 from yearn.utils import contract
 
 logger = logging.getLogger(__name__)
@@ -224,7 +223,7 @@ class Treasury:
                 balance = web3.eth.get_balance(address) / 10 ** 18
             balances[address]['ETH'] = {
                 'balance': balance,
-                'usd value': balance * get_price(weth, block),
+                'usd value': balance * get_price(WRAPPED_GAS_COIN, block),
             }
         return balances
 
@@ -351,7 +350,7 @@ class Treasury:
         gas_token_markets = [market for market in markets if not hasattr(market,'underlying')]
         other_markets = [market for market in markets if hasattr(market,'underlying')]
         markets = gas_token_markets + other_markets
-        underlyings = [weth for market in gas_token_markets] + fetch_multicall(*[[market,'underlying'] for market in other_markets])
+        underlyings = [WRAPPED_GAS_COIN for market in gas_token_markets] + fetch_multicall(*[[market,'underlying'] for market in other_markets])
         
         markets_zip = zip(markets,underlyings)
         markets, underlyings = [], []

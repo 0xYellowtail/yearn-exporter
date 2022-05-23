@@ -3,7 +3,7 @@ from yearn.constants import WRAPPED_GAS_COIN
 from yearn.prices import balancer as bal
 from yearn.prices.aave import aave
 from yearn.prices.compound import compound
-from yearn.prices.constants import stablecoins, weth
+from yearn.prices.constants import stablecoins
 from yearn.prices.curve import curve
 from yearn.prices.fixed_forex import fixed_forex
 from yearn.prices.yearn import yearn_lens

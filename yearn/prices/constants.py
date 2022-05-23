@@ -14,7 +14,7 @@ tokens_by_network = {
         'dai': '0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d', # wxdai address
     },
     Network.Fantom: {
-        'weth': '0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83',
+        'weth': '0x74b23882a30290451A17c44f4F05243b6b58C76d',
         'usdc': '0x04068DA6C83AFCFA0e13ba15A6696662335D5B75',
         'dai': '0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E',
     },
